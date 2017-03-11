@@ -37,10 +37,9 @@ function sp_sql_posts($tag,$where=array()){
 
 
 	$join = "".C('DB_PREFIX').'posts as b on a.object_id =b.id';
-	$join2= "".C('DB_PREFIX').'users as c on b.post_author = c.id';
 	$rs= M("TermRelationships");
 
-	$posts=$rs->alias("a")->join($join)->join($join2)->field($field)->where($where)->order($order)->limit($limit)->select();
+	$posts=$rs->alias("a")->join($join)->field($field)->where($where)->order($order)->limit($limit)->select();
 	return $posts;
 }
 
@@ -99,9 +98,8 @@ function sp_posts($tag,$where=array(),$pagesize=20,$pagesetting=array(),$pagetpl
 	}
 
 	$join = "".C('DB_PREFIX').'posts as b on a.object_id =b.id';
-	$join2= "".C('DB_PREFIX').'users as c on b.post_author = c.id';
 	$rs= M("TermRelationships");
-	$totalsize=$rs->alias("a")->join($join)->join($join2)->field($field)->where($where)->count();
+	$totalsize=$rs->alias("a")->join($join)->field($field)->where($where)->count();
 
 	import('Page');
 	if ($pagesize == 0) {
@@ -191,9 +189,8 @@ function sp_sql_posts_paged($tag,$pagesize=20,$pagetpl='{first}{prev}{liststart}
 	}
 
 	$join = "".C('DB_PREFIX').'posts as b on a.object_id =b.id';
-	$join2= "".C('DB_PREFIX').'users as c on b.post_author = c.id';
 	$rs= M("TermRelationships");
-	$totalsize=$rs->alias("a")->join($join)->join($join2)->field($field)->where($where)->count();
+	$totalsize=$rs->alias("a")->join($join)->field($field)->where($where)->count();
 	
 	import('Page');
 	if ($pagesize == 0) {
@@ -246,9 +243,8 @@ function sp_sql_posts_paged_bykeyword($keyword,$tag,$pagesize=20,$pagetpl='{firs
 	}
 
 	$join = "".C('DB_PREFIX').'posts as b on a.object_id =b.id';
-	$join2= "".C('DB_PREFIX').'users as c on b.post_author = c.id';
 	$rs= M("TermRelationships");
-	$totalsize=$rs->alias("a")->join($join)->join($join2)->field($field)->where($where)->count();
+	$totalsize=$rs->alias("a")->join($join)->field($field)->where($where)->count();
 	import('Page');
 	if ($pagesize == 0) {
 		$pagesize = 20;
@@ -313,10 +309,8 @@ function sp_sql_post($tid,$tag){
 	$where['tid'] = array('eq',$tid);
 
 	$join = "".C('DB_PREFIX').'posts as b on a.object_id =b.id';
-	$join2= "".C('DB_PREFIX').'users as c on b.post_author = c.id';
 	$term_relationships_model= M("TermRelationships");
-
-	$post=$term_relationships_model->alias("a")->join($join)->join($join2)->field($field)->where($where)->find();
+	$post=$term_relationships_model->alias("a")->join($join)->field($field)->where($where)->find();
 	return $post;
 }
 
