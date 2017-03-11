@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>{$site_name}</title>
+<meta name="keywords" content="{$site_seo_keywords}" />
+<meta name="description" content="{$site_seo_description}">
+<meta name="author" content="ThinkCMF">
+<tc_include file="Public:head" />
+</head>
+
+<body class="body-white">
+	<tc_include file="Public:nav" />
+
+	<div class="container tc-main">
+		<div class="row">
+			<div class="span6 offset3">
+				<h2 class="text-center">アカウントを作成</h2>
+				<form class="form-horizontal J_ajaxForm" action="{:U('user/register/doregister')}" method="post">
+					<div class="control-group">
+						<label class="control-label" for="input_username">アカウント</label>
+						<div class="controls">
+							<input type="text" id="input_username" name="username" placeholder="アカウントを入力してください。" class="span3" maxLength="16">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="input_email">電子メール</label>
+						<div class="controls">
+							<input type="text" id="input_email" name="email" placeholder="メールアドレスを入力してください。" class="span3" maxLength="16">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="input_password">パスワード</label>
+						<div class="controls">
+							<input type="password" id="input_password" name="password" placeholder="パスワードを入力してください。" class="span3" maxLength="32">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="input_repassword">繰り返しパスワード</label>
+						<div class="controls">
+							<input type="password" id="input_repassword" name="repassword" placeholder="繰り返しのパスワードを入力してください" class="span3" maxLength="32">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="input_verify">検証番号</label>
+						<div class="controls">
+							<input type="text" id="input_verify" name="verify" placeholder="検証番号を入力してください。" class="span3" maxLength="4">
+						</div>
+					</div>
+					<div class="control-group">
+						<div class="controls">
+							{:sp_verifycode_img('code_len=4&font_size=15&width=100&height=35&charset=1234567890')}
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="input_repassword"></label>
+						<div class="controls">
+							<label class="checkbox persistent"><input type="checkbox" name="terms" value="1">
+								私は同意し<a href="#">Webコンテンツサービス条項</a></label>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="input_repassword"></label>
+						<div class="controls">
+							<button class="btn btn-primary J_ajax_submit_btn" type="submit" data-wait="1500">確定登録</button>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="input_repassword"></label>
+						<div class="controls">
+							<p>
+								すでにアカウント？ <a href="{:U('user/login/index')}">ここをクリックして</a>
+							</p>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+
+	</div>
+		<tc_include file="Public:footer" />
+	<!-- /container -->
+
+	<tc_include file="Public:scripts" />
+</body>
+</html>

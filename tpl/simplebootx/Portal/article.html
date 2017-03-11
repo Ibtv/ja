@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+    <php>
+    $second=sp_get_term($term['parent']);
+    </php>
+	<html>
+	<head>
+	<title>{$post_title}┊{$term['name']}┊{$second['name']}┊{$site_name}</title>
+		<tc_include file="Public:head" />
+		<script type="text/javascript" src="__TMPL__Public/js/qrcode.min.js"></script>
+		<style>
+			#article_content img{height:auto !important}
+			#article_content {word-wrap: break-word;}
+			.btn {margin-top: 33px;}
+		</style>
+	</head>
+<body class="">
+<tc_include file="Public:nav" />
+<div class="container tc-main">
+	<div class="row">
+		<div class="span9">
+			<div class="tc-box first-box article-box">
+		    	<h2>{$post_title}</h2>
+		    	<div class="article-infobox">
+		    		<span>{$post_date} by {$user_nicename|default=$user_login}</span>
+		    		<span>
+		    			<a href="javascript:;"><i class="fa fa-eye"></i><span>{$post_hits}</span></a>
+						<a href="{:U('article/do_like',array('id'=>$object_id))}" class="J_count_btn"><i class="fa fa-thumbs-up"></i><span class="count">{$post_like}</span></a>
+						<a href="{:U('user/favorite/do_favorite',array('id'=>$object_id))}" class="J_favorite_btn" data-title="{$post_title}" data-url="{:U('article/index',array('id'=>$tid))}" data-key="{:sp_get_favorite_key('posts',$object_id)}">
+							<i class="fa fa-star-o"></i>
+						</a>
+					</span>
+		    	</div>
+		    	<hr>
+		    	<div id="article_content">
+		    	{$post_content}
+		    	</div>
+                <if condition="!empty($post_source)">
+                    <div>
+                        <b> 注：　本文は{$post_source}から転載したもので、その目的はより多くの情報を伝えることであって、本サイトがその観点に同意し、真実性に責任を持つことではありません。もし、権利侵害行為がある場合は、すぐ削除できるよう、ご連絡ください。</b>
+                    </div>
+				</if>
+		    	<div>
+					<if condition="!empty($prev)">
+					<a href="{:U('article/index',array('id'=>$prev['tid']))}" class="btn btn-primary pull-left">上一篇</a>
+					</if>
+					<if condition="!empty($next)">
+					<a href="{:U('article/index',array('id'=>$next['tid']))}" class="btn btn-warning pull-right">下一篇</a>
+					</if>
+                    <div id="qrcode" style="width: 100px;margin:0 auto"></div>
+						<script type="text/javascript">
+                        var qrcode = new QRCode(document.getElementById("qrcode"), {
+                        width : 100,
+                        height : 100
+                        });
+                        function makeCode () {		
+                        qrcode.makeCode("http://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}");
+                        }
+                        makeCode();
+                        </script>
+					<div class="clearfix"></div>
+				</div>
+		    	
+		    	{:Comments("posts",$object_id)}
+		    </div>
+	    
+		</div>
+		<div class="span3">	
+        
+            
+			<div class="tc-box first-box">
+	        	<div class="headtitle">
+	        		<h2>即時更新</h2>
+	        	</div>
+	        	<div class="ranking">
+	        		<php>
+						$hits=sp_sql_posts('field:tid,post_title;limit:9;order:post_hits asc'); 
+					</php>
+		        	<ul class="unstyled">
+		        		<foreach name="hits" item="vo">
+		        			<php>$top=$key<3?"top3":"";</php>
+							<li class="{$top}"><i>{$key+1}</i><a title="{$vo.post_title}" href="{:leuu('article/index',array('id'=>$vo['tid']))}">{$vo.post_title}</a></li>
+						</foreach>
+					</ul>
+				</div>
+			</div>
+			<div class="tc-box">
+	        	<div class="headtitle">
+	        		<h2>最新リリース</h2>
+	        	</div>
+	        	<php>
+					$last_post=sp_sql_posts("field:post_title,post_excerpt,tid,smeta;order:listorder asc;limit:9;"); 
+				</php>
+	        	<div class="posts">
+	        		<foreach name="last_post" item="vo">
+	        		<php>$smeta=json_decode($vo['smeta'],true);</php>
+			        	<dl class="dl-horizontal">
+				            <dt>
+					            <a class="img-wraper" href="{:U('article/index',array('id'=>$vo['tid']))}">
+									<img onerror="nofind();"src="{:sp_get_asset_upload_path($smeta['thumb'])}" class="img-responsive img-thumbnail" alt="{$vo.post_title}" />
+					            </a>
+				            </dt>
+				            <dd><a href="{:leuu('article/index',array('id'=>$vo['tid']))}">{:msubstr($vo['post_excerpt'],0,32)}</a></dd>
+				        </dl>
+			        </foreach>
+		        </div>
+			</div>
+            <div class="tc-box">                
+	        	<div class="headtitle">
+	        		<h2>熱い議論</h2>
+	        	</div>
+	        	<div class="ranking">
+	        		<php>
+						$comments=sp_sql_posts('field:tid,post_title;limit:9;order:comment_count desc'); 
+					</php>
+		        	<ul class="unstyled">
+		        		<foreach name="comments" item="vo">
+		        			<php>$top=$key<3?"top3":"";</php>
+							<li class="{$top}"><i>{$key+1}</i><a title="{$vo.post_title}" href="{:leuu('article/index',array('id'=>$vo['tid']))}">{$vo.post_title}</a></li>
+						</foreach>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+              
+</div>
+
+<tc_include file="Public:footer"/>
+
+<tc_include file="Public:scripts"/>
+</body>
+</html>

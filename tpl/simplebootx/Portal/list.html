@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<php>
+$this_parent = sp_get_term($cat_id);
+$second=sp_get_term($this_parent[parent]);
+</php>
+	<title>{$name}┊{$second['name']}┊{$site_name}</title>
+	<meta name="keywords" content="{$seo_keywords}" />
+	<meta name="description" content="{$seo_description}">
+    <tc_include file="Public:head" />
+</head>
+<body>
+<tc_include file="Public:nav" />
+<div class="container tc-main">
+    <div class="row">
+		<div class="span9">
+			<div class="">
+				<php>
+					$lists = sp_sql_posts_paged("cid:$cat_id;order:post_date DESC;",10);
+				</php>
+				<volist name="lists['posts']" id="vo">
+				<div class="list-boxes">
+					<h2><a href="{:leuu('article/index',array('id'=>$vo['tid']))}">{$vo.post_title}</a></h2>
+					<p>{$vo.post_excerpt|msubstr=0,256}</p>
+					<div>
+						<div class="pull-left">
+							<div class="list-actions">
+							<a href="javascript:;"><i class="fa fa-eye"></i><span>{$vo.post_hits}</span></a>
+							<a href="{:U('article/do_like',array('id'=>$vo['object_id']))}" class="J_count_btn"><i class="fa fa-thumbs-up"></i><span class="count">{$vo.post_like}</span></a>
+							<a href="{:U('user/favorite/do_favorite',array('id'=>$vo['object_id']))}" class="J_favorite_btn" data-title="{$vo.post_title}" data-url="{:U('portal/article/index',array('id'=>$vo['tid']))}" data-key="{:sp_get_favorite_key('posts',$vo['object_id'])}">
+								<i class="fa fa-star-o"></i>
+							</a>
+							</div>
+						</div>
+						<a class="btn btn-warning pull-right" href="{:leuu('article/index',array('id'=>$vo['tid']))}">查看更多</a>
+					</div>
+				</div>
+				</volist>
+				
+			</div>
+			<div class="pagination">
+				<ul>
+					{$lists['page']}
+				</ul>
+			</div>
+		</div>
+		<div class="span3">        	
+        	<div class="tc-box first-box">
+	        	<div class="headtitle">
+	        		<h2>置顶</h2>
+	        	</div>
+	        	<div class="comment-ranking">                        
+                  	<div class="ranking">
+                        <php>
+                        $istop=sp_sql_posts('field:tid,post_title;limit:9;order:istop desc'); 
+                        </php>
+                        <ul class="unstyled">
+                            <foreach name="istop" item="vo">
+                                <php>$top=$key<3?"top3":"";</php>
+                                <li class="{$top}"><i>{$key+1}</i><a title="{$vo.post_title}" href="{:U('article/index',array('id'=>$vo['tid']))}">{$vo.post_title}</a></li>
+                            </foreach>
+                        </ul>
+					</div>
+                </div>
+			</div>
+			
+			<div class="tc-box">                
+	        	<div class="headtitle">
+	        		<h2>推荐</h2>
+	        	</div>
+	        	<div class="ranking">
+	        		<php>
+						$hot=sp_sql_posts('field:tid,post_title;limit:9;order:recommended desc'); 
+					</php>
+		        	<ul class="unstyled">
+		        		<foreach name="hot" item="vo">
+		        			<php>$top=$key<3?"top3":"";</php>
+							<li class="{$top}"><i>{$key+1}</i><a title="{$vo.post_title}" href="{:leuu('article/index',array('id'=>$vo['tid']))}">{$vo.post_title}</a></li>
+						</foreach>
+					</ul>
+				</div>
+			</div>
+			
+			<div class="tc-box">                
+	        	<div class="headtitle">
+	        		<h2>最赞</h2>
+	        	</div>
+	        	<div class="ranking">
+	        		<php>
+						$like=sp_sql_posts('field:tid,post_title;limit:9;order:post_like desc'); 
+					</php>
+		        	<ul class="unstyled">
+		        		<foreach name="like" item="vo">
+		        			<php>$top=$key<3?"top3":"";</php>
+							<li class="{$top}"><i>{$key+1}</i><a title="{$vo.post_title}" href="{:leuu('article/index',array('id'=>$vo['tid']))}">{$vo.post_title}</a></li>
+						</foreach>
+					</ul>
+				</div>
+			</div>
+		</div>
+    </div>
+    
+    
+</div>
+    <tc_include file="Public:footer" />
+
+    
+<!-- JavaScript -->
+<tc_include file="Public:scripts" />
+</body>
+</html>

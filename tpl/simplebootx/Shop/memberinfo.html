@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>會員信息 - {$site_name}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="__TMPL__Public/images/ico.ico" type="image/ico">
+<link href="__TMPL__Public/shop/css/sindex.css" rel="stylesheet" type="text/css">
+<link href="__TMPL__Public/shop/css/public.css" rel="stylesheet" type="text/css">
+<link href="__TMPL__Public/simpleboot/font-awesome/4.2.0/css/font-awesome.min.css"  rel="stylesheet" type="text/css">
+<script type="text/javascript" src="__TMPL__Public/shop/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="__TMPL__Public/shop/js/ScrollPic.js"></script>
+</head>
+<body style="background:#fff;">
+
+<tc_include file="Public:shopnav" />
+<div class="container_4">
+    	<div class="title_9"><a href="{:u('memberprod/index')}">商城首頁</a> ><a href="{:u('memberprod/member')}">所有會員</a> > {$mb[mname]}</div>
+        <div class="introduction_membership">
+        	<h3>會員介紹</h3>
+            <div class="layout">
+            	<div class="left_5">
+                	<img src="{$mb['mlogo']}" alt="img" />
+                </div>
+                <div class="right">
+                	<h2>{$mb[mname]}</h2>
+                    <div class="sidebar_1">會員介紹</div>
+                    <p>{$mb.comm}</p>
+                </div>
+            </div>
+        </div>
+        <div class="introduction_membership_1">
+        	<div class="membership_info" style="margin-right:10px;">
+            	<h3>會員信息</h3>
+                <div class="msg_1">
+                	<p>地址</p>
+                    <p style='line-height:20px; font-size:12px; color:#000; font-family:"宋体";'>{$mb['addr']}</p>
+                    <p>所屬行業</p>
+                    <p style='line-height:20px; font-size:12px; color:#000; font-family:"宋体";'>{$mb['htypename']}</p>
+                    <p>聯繫方式</p>
+                    <p style='line-height:20px; font-size:12px; color:#000; font-family:"宋体";'>電話：{$mb['tel']}</p>
+                    <p style='line-height:20px; font-size:12px; color:#000; font-family:"宋体";'>郵箱：{$mb['memail']}</p>
+                </div>
+            </div>
+            <div class="product_display_a">
+            	<h3>產品</h3>
+                <foreach name="mpro" item="vo">
+                <dl class="list_9">
+                	<dt><a href="{:u('memberprod/productinfo',array('id'=>$vo['id']))}"><img src="{$vo.pimg}" alt="img" /></a></dt>
+                    <dd><a style="color:#26539c;" href="{:u('memberprod/productinfo',array('id'=>$vo['id']))}">{$vo.pname}</a></dd>
+                    <dd><a href="{:u('memberprod/productinfo',array('id'=>$vo['id']))}">推薦價格：<span>{$vo.price}</span></a></dd>
+                </dl>
+			</foreach>
+            </div>
+        </div>
+    </div>
+<tc_include file="Public:footer"/>
+</body>
+</html>

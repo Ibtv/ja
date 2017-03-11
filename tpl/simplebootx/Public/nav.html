@@ -1,0 +1,65 @@
+ <div id="header">
+    	<div id="logo">
+        	<a href="__ROOT__/" title="{$site_name}">
+        		<img src="__TMPL__/Public/images/logo.png" alt="{$site_name}/LOGO" width="64" height="58" title="{$site_name}"/>
+            </a>
+        </div>
+        <div id="tit_right">
+        	<div class="navbar-inner">
+            	<div class="nav">
+            	<a href="http://sc.ibtv.cc" title="中/简">中/简</a>
+        		<a href="http://tc.ibtv.cc" title="中/繁">中/繁</a>
+                <a href="http://en.ibtv.cc" title="English">English</a>
+                <a href="http://ar.ibtv.cc" title="العربية">العربية</a>
+                <a href="http://fr.ibtv.cc" title="Français">Français</a>
+                <a href="http://es.ibtv.cc" title="Español">Español</a>
+                <a href="http://ru.ibtv.cc" title="Русский">Русский</a>
+                <a href="http://pt.ibtv.cc" title="Português">Português</a>
+                <a href="http://de.ibtv.cc" title="Deutsch">Deutsch</a>
+            	<a href="http://kr.ibtv.cc" title="한국어">한국어</a> 
+                <a href="http://it.ibtv.cc" title="Italia">Italia</a>
+            	<a href="http://ja.ibtv.cc" title="日本">日本</a> 
+                </div>
+                
+            <ul class="pull-right" id="main-menu-user">
+                <li class="dropdown user login">
+                   <a href="{:u('user/center/index')}"><i class="fa fa-user"></i><span class="user-nicename"></span></a>┊
+                   <a href="{:u('user/index/logout')}"style="padding-right: 5px;"><i class="fa fa-sign-out"></i> &nbsp;名目</a>
+                </li>
+                <li class="dropdown user offline">
+                   <a href="{:u('user/login/index')}"class="dropdown-toggle"><i class="fa fa-sign-in"></i> &nbsp;登録</a>
+                </li>
+			</ul>
+            </div>
+            <div class="bottom">
+            	<a href="__ROOT__/" title="{$site_name}"><h2>{$site_name}</h2></a>
+                <if condition="!empty($second['name'])"> 
+                    <a href="{:u('list/index',array('id'=>$second['term_id']))}" title="{$second['name']}"><h2>{$s = empty($second['name'])?"":'┊'}{$second['name']}</h2></a>
+                </if>  
+            	<a href="{:u('list/index',array('id'=>$cat_id.$term['term_id']))}" title="{$name}{$term.name}"><h2>
+                    {$n = empty($name)?"":'┊'}{$name}
+                    {$t = empty($term['name'])?"":'┊'}{$term['name']}
+                </h2></a>
+                
+                <div class="search">
+                    <form method="post" action="{:U('portal/search/index')}">
+						<input class="search_input" placeholder="Search" name="keyword" value="{:I('get.keyword')}" required/>
+                		<input type="submit" class="searchbar" value="検索" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //header -->
+  
+      <div id="subnav">     
+            <a href="{:u('list/index',array('id'=>110))}" title="ニュース" target="">ニュース</a> | 
+            <a href="{:u('list/index',array('id'=>120))}" title="経済" target="">経済</a> | 
+            <a href="{:u('list/index',array('id'=>130))}" title="国際貿易" target="">国際貿易</a> | 
+            <a href="{:u('list/index',array('id'=>150))}" title="投資" target="">投資</a> | 
+            <a href="{:u('list/index',array('id'=>160))}" title="伝統文化" title="">伝統文化</a> | 
+            <a href="{:u('list/index',array('id'=>170))}" title="旅行" target="">旅行</a> | 
+            <a href="{:u('list/index',array('id'=>180))}" title="ライフ" target="">ライフ</a> | 
+            <a href="/shop" title="メンバーモール" target="">メンバーモール</a>
+</div>
+    

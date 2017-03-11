@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>搜索 - {$site_name}</title>
+<link href="__TMPL__Public/shop/css/sindex.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="__TMPL__Public/shop/js/jquery.js"></script>
+</head>
+<body style="background:#fff;">
+	<!-- header -->
+	
+<tc_include file="Public:membernav" />
+    <!-- //header -->
+    <!-- 搜索 -->
+    <div class="container_4">
+  
+        <div class="introduction_membership_3" style=" padding:none;">
+        	
+            <script type="text/javascript">
+            	$(function(){
+					$(".deal_even").mouseover(function(){
+						$(this).css("border","#f92b73 1px solid");
+					}).mouseout(function(){
+						$(this).css("border","#ddd 1px solid");
+					});
+					
+				});
+            </script>
+            <if condition = "$arr['types'] eq 'memberinfo'">
+                <foreach name="search" item="vo">
+                <div class="deal_even">
+                <div class="deal-tile_cover"><a href="{:u('memberprod/memberinfo',array('id'=>$vo['id']))}"><img src="{$vo.mlogo}" alt="img" /></a></div>
+                <p><a href="{:u('memberprod/memberinfo',array('id'=>$vo['id']))}">{$vo.mname}</a></p>
+                <ul class="look">
+                    <li><a href="{:u('memberprod/memberinfo',array('id'=>$vo['id']))}">Check out</a></li>
+                    <li style="border:none;"><a href="{:U('user/favorite/do_favorite',array('id'=>$object_id))}">Collect</a></li>
+                </ul>
+                 </div>
+                 </foreach>
+            <else />
+                 <foreach name="search" item="vo">
+                 <div class="deal_even">
+                 <div class="deal-tile_cover"><a href="{:u('memberprod/productinfo',array('id'=>$vo['id']))}"><img src="{$vo.pimg}" alt="img" /></a></div>
+                 <p><a href="{:u('memberprod/productinfo',array('id'=>$vo['id']))}">{$vo.pname}</a></p>
+                <ul class="look">
+                <li><a href="{:u('memberprod/productinfo',array('id'=>$vo['id']))}">Check out</a></li>
+                <li style="border:none;"><a href="{:U('user/favorite/do_favorite',array('id'=>$object_id))}">Collect</a></li>
+                </ul>
+                 </div>
+                 </foreach>
+            </if> 
+        </div>
+    </div>
+    <!-- //搜索 -->
+    <tc_include file="Public:footer"/>
+</body>
+</html>

@@ -1,0 +1,472 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>商城首頁 - {$site_name}</title>
+<meta name="author" content="Powerless"> 
+<meta name="Copyright" content="{$site_seo_title}">
+<meta name="keywords" content="{$site_seo_keywords}" />
+<meta name="description" content="{$site_seo_description}">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="__TMPL__Public/images/ico.ico" type="image/ico">
+<link href="__TMPL__Public/shop/css/public.css" rel="stylesheet" type="text/css">
+<link href="__TMPL__Public/shop/css/index.css" rel="stylesheet" type="text/css">
+<link href="__TMPL__Public/simpleboot/font-awesome/4.2.0/css/font-awesome.min.css"  rel="stylesheet" type="text/css">
+<script type="text/javascript" src="__TMPL__Public/shop/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="__TMPL__Public/shop/js/ScrollPic.js"></script>
+<script type="text/javascript" language="javascript">  
+function nofind(){
+var img=event.srcElement;
+img.src="__TMPL__Public/images/default_tupian1.png";
+img.onerror=null; 
+}
+</script>
+</head>
+<body>
+<tc_include file="Public:shopnav" /> 
+    <!-- wrap -->
+    
+        <div id="wrap">
+        <!-- //banner --> 
+        <!-- the window of life -->
+        <div class="container">
+        	<div class="title_the">
+            	<h3 style="font-family:'微软雅黑';"><i class="fa fa-thumbs-o-up" style="margin-right:20px"></i>推薦會員</h3>
+                <a href="member.html">Featured Members</a>
+            </div>
+            <div class="content_the">
+            
+                        <php>
+                        	$food = sp_sql_approve("field:id,mlogo,mname;order:tuij DESC;limit:8;");
+                            $fm = 0;
+                        </php>
+                        <foreach name="food" item="fo">
+                        <php>$fm++;</php>
+                            <div class="img_the" <php>if($fm == 4 || $fm == 8) {echo "style='margin-left:1px; margin-right:0;'";}</php>>
+                                <a href="{:u('memberprod/memberinfo',array('id'=>$fo['id']))}" title="{$fo.mname}">
+                                	<img onerror="nofind();" src="{$fo.mlogo}" alt="{$fo.mname}" title="{$fo.mname}"/>
+                                </a>
+                                <div class="ceng_the">
+                                    <a href="{:u('memberprod/memberinfo',array('id'=>$fo['id']))}" title="{$fo.mname}"><div class="tit_the">{$fo.mname}</div></a>
+                                </div>
+                            </div>
+                		</foreach>
+                        
+
+            </div>
+        </div>
+        <!-- //the window of life -->
+        <!-- content -->
+        <div class="container">
+        	<div class="content">
+            	<!-- menu_left -->
+                <div class="menu_left">
+                	<!-- 最新产品 -->
+                    <div class="content_produ">
+                    	<!-- title_produc -->
+                    	<div class="title_produc" style="background:#10C2CE;">
+                        	<h3 style="font-family:'微软雅黑';"><i class="fa fa-thumbs-up" style="margin-right:20px"></i>推薦产品</h3>
+                            <a href="product.html"> > </a>
+                        </div>
+                        <!-- //title_produc -->
+                        <!-- menu_produc -->
+                        <div class="menu_produc">
+                        	<div class="btn_left" id="RightArr"></div>
+                            <!-- btn_center -->
+                            <ul class="btn_center" id="Products">
+                <php>
+                    $producezx = sp_sql_produce("field:id,pimg,pname,mname,comm;order:status DESC;limit:1,9;");
+                    $m=0;
+                </php>
+                <foreach name="producezx" item="zx">
+                <php>$m++;</php>
+                	<li>
+                        <div class="img_pro">
+                            <a href="{:u('memberprod/productinfo',array('id'=>$zx['id']))}" title="{$zx.pname}">
+                                <img onerror="nofind();" src="{$zx.pimg}" alt="{$zx.pname}" title="{$zx.pname}"/>
+                            </a>
+                        </div>
+                        <div class="tit_li">
+                            <div class="btn_a">{$m}</div>
+                            <div class="tit_pro">{$zx.mname}</div>
+                        </div>
+                        <div class="tip_pro">
+                            <a href="{:u('memberprod/productinfo',array('id'=>$zx['id']))}" title="{$zx.pname}"><p>{$zx.pname}</p></a>
+                        </div>
+                    </li>
+                </foreach>
+                            </ul>
+							<!-- //btn_center -->
+                            <div class="btn_right" id="LeftArr"></div>
+                            <script type="text/javascript">
+								var scrollPic_02 = new ScrollPic();
+								scrollPic_02.scrollContId   = "Products"; //内容容器ID
+								scrollPic_02.arrLeftId      = "LeftArr";//左箭头ID
+								scrollPic_02.arrRightId     = "RightArr"; //右箭头ID
+						
+								scrollPic_02.frameWidth     = 900;//显示框宽度
+								scrollPic_02.pageWidth      = 180; //翻页宽度
+						
+								scrollPic_02.speed          = 30; //移动速度(单位毫秒，越小越快)
+								scrollPic_02.space          = 10; //每次移动像素(单位px，越大越快)
+								scrollPic_02.autoPlay       = true; //自动播放
+								scrollPic_02.autoPlayTime   = 1; //自动播放间隔时间(秒)
+						
+								scrollPic_02.initialize(); //初始化
+							</script>
+                        </div>
+                        <!-- //menu_prouc -->
+                    </div>
+                    <!-- //最新产品 -->
+                    <!-- 农/林/牧/渔业 -->
+                    <div class="content_produ">
+                    	<!-- title_produc -->
+                    	<div class="title_produc" style="background:#f5619c;">
+                        	<h3 style="font-family:'微软雅黑';"><i class="fa fa-cutlery" style="margin-right:20px"></i>食品</h3>
+                            <a href="#"> > </a>
+                        </div>
+                        <!-- //title_produc -->
+                        <!-- menu_produc -->
+                        <div class="menu_produc" style="border-bottom:none; margin-bottom:1px;">
+
+                            <div class="big_left">
+                                    <img onerror="nofind();" src="__TMPL__Public/shop/img/food.jpg"/>
+                            </div>
+                        <ul class="sml_right">
+                            <php>
+                                $food = sp_sql_approve("htypeid:1;field:id,mlogo,mname;order:createtime DESC;limit:8;");
+                            </php>
+                            <foreach name="food" item="fo">
+                                <li>
+                                    <div class="img_rec_sml">
+                                        <a href="{:u('memberprod/memberinfo',array('id'=>$fo['id']))}" title="{$fo.mname}">
+                                            <img onerror="nofind();" src="{$fo.mlogo}" alt="{$fo.mname}" title="{$fo.mname}"/>
+                                        </a>
+                                    </div>
+                                    <div class="tip_sml"><a href="{:u('memberprod/memberinfo',array('id'=>$fo['id']))}" title="{$fo.mname}">{$fo.mname}</a></div>
+                                </li>
+                            </foreach>
+                        </ul>
+                        </div>
+                        <!-- //menu_prouc -->
+                    </div>
+                    <!-- //农/林/牧/渔业 -->
+                    <!-- 采矿业/制造业 -->
+                    <div class="content_produ">
+                    	<!-- title_produc -->
+                    	<div class="title_produc" style="background:#97b921;">
+                        	<h3 style="font-family:'微软雅黑';"><i class="fa fa-bolt" style="margin-right:20px"></i>能源礦產</h3>
+                            <a href="#"> > </a>
+                        </div>
+                        <!-- //title_produc -->
+                        <!-- menu_produc -->
+                        <div class="menu_produc" style="border-bottom:none; margin-bottom:1px;">
+
+                            <div class="big_left">
+                                       <img onerror="nofind();" src="__TMPL__Public/shop/img/energy.jpg"/>
+                            </div>
+                        
+                            
+                            <ul class="sml_right">
+                                <php>
+                                    $energy = sp_sql_approve("htypeid:2;field:id,mlogo,mname;order:createtime DESC;limit:8;");
+                                </php>
+                                <foreach name="energy" item="en">
+                            	<li>
+                                	<div class="img_rec_sml">
+                                    <a href="{:u('memberprod/memberinfo',array('id'=>$end['id']))}" title="{$en.mname}">
+                                        <img onerror="nofind();" src="{$en.mlogo}" alt="{$en.mname}" title="{$en.mname}"/>
+                                    </a>
+                                    </div>
+                                    <div class="tip_sml"><a href="{:u('memberprod/memberinfo',array('id'=>$end['id']))}" title="{$en.mname}">{$en.mname}</a></div>
+                                </li>
+                                </foreach>
+                            </ul>
+                        </div>
+                        <!-- //menu_prouc -->
+                    </div>
+                    <!-- //采矿业/制造业 -->
+                    <!-- 电力/热力/燃力 -->
+                    <div class="content_produ">
+                    	<!-- title_produc -->
+                    	<div class="title_produc" style="background:#aa73d1;">
+                        	<h3 style="font-family:'微软雅黑';"><i class="fa fa-flask" style="margin-right:20px"></i>石化</h3>
+                            <a href="#"> > </a>
+                        </div>
+                        <!-- //title_produc -->
+                        <!-- menu_produc -->
+                        <div class="menu_produc" style="border-bottom:none; margin-bottom:1px;">
+
+
+                            <div class="big_left">
+                                
+                                       <img onerror="nofind();" src="__TMPL__Public/shop/img/petrifaction.jpg"/>
+                            </div>
+                        
+                            <ul class="sml_right">
+                        <php>
+                        	$petrifaction = sp_sql_approve("htypeid:3;field:id,mlogo,mname;order:createtime DESC;limit:8;");
+                        </php>
+                        <foreach name="petrifaction" item="pe">
+                            	<li>
+                                	<div class="img_rec_sml">
+                                        <a href="{:u('memberprod/memberinfo',array('id'=>$pe['id']))}" title="{$pe.mname}">
+                                            <img onerror="nofind();" src="{$pe.mlogo}" alt="{$pe.mname}" title="{$pe.mname}"/>
+                                        </a>
+                                    </div>
+                                    <div class="tip_sml"><a href="{:u('memberprod/memberinfo',array('id'=>$pe['id']))}" title="{$pe.mname}">{$pe.mname}</a></div>
+                                </li>
+                		</foreach>
+                            	
+                            </ul>
+                        </div>
+                        <!-- //menu_prouc -->
+                    </div>
+                    <!-- //电力/热力/燃力 -->
+                    <!-- 建筑业/房地产业 -->
+                    <div class="content_produ">
+                    	<!-- title_produc -->
+                    	<div class="title_produc" style="background:#b68571;">
+                        	<h3 style="font-family:'微软雅黑';"><i class="fa fa-home" style="margin-right:20px"></i>建築</h3>
+                            <a href="#"> > </a>
+                        </div>
+                        <!-- //title_produc -->
+                        <!-- menu_produc -->
+                        <div class="menu_produc" style="border-bottom:none; margin-bottom:1px;">
+                            
+                                    <div class="big_left">
+                                       <img onerror="nofind();" src="__TMPL__Public/shop/img/building.jpg"/>
+                                    </div>
+                        
+                            <ul class="sml_right">
+                            <php>
+                                $building = sp_sql_approve("htypeid:4;field:id,mlogo,mname;order:createtime DESC;limit:8;");
+                            </php>
+                            <foreach name="building" item="bu">
+                                    <li>
+                                        <div class="img_rec_sml">
+                                            <a href="{:u('memberprod/memberinfo',array('id'=>$bu['id']))}" title="{$bu.mname}">
+                                                <img onerror="nofind();" src="{$bu.mlogo}" alt="{$bu.mname}" title="{$bu.mname}"/>
+                                            </a>
+                                        </div>
+                                        <div class="tip_sml"><a href="{:u('memberprod/memberinfo',array('id'=>$bu['id']))}" title="{$bu.mname}">{$bu.mname}</a></div>
+                                    </li>
+                            </foreach>
+                            </ul>
+                        </div>
+                        <!-- //menu_prouc -->
+                    </div>
+                    <!-- //建筑业/房地产业 -->
+                    <!-- 批发/零售业 -->
+                    <div class="content_produ">
+                    	<!-- title_produc -->
+                    	<div class="title_produc" style="background:#7e3a92;">
+                        	<h3 style="font-family:'微软雅黑';"><i class="fa fa-female" style="margin-right:20px"></i>服裝</h3>
+                            <a href="#"> > </a>
+                        </div>
+                        <!-- //title_produc -->
+                        <!-- menu_produc -->
+                        <div class="menu_produc" style="border-bottom:none; margin-bottom:1px;">
+                                <div class="big_left">
+                                       <img onerror="nofind();" src="__TMPL__Public/shop/img/clothing.jpg"/>
+                                </div>
+                            
+                            <ul class="sml_right">
+                            <php>
+                                $clothing = sp_sql_approve("htypeid:5;field:id,mlogo,mname;order:createtime DESC;limit:8;");
+                            </php>
+                            <foreach name="clothing" item="cl">
+                                <li>
+                                	<div class="img_rec_sml">
+                                    	<a href="{:u('memberprod/memberinfo',array('id'=>$cl['id']))}" title="{$cl.mname}">
+                                            <img onerror="nofind();" src="{$cl.mlogo}" alt="{$cl.mname}" title="{$cl.mname}"/>
+                                        </a>
+                                    </div>
+                                    <div class="tip_sml"><a href="{:u('memberprod/memberinfo',array('id'=>$cl['id']))}" title="{$cl.mname}">{$cl.mname}</a></div>
+                                </li>
+                            </foreach>
+                            </ul>
+                        </div>
+                        <!-- //menu_prouc -->
+                    </div>
+                    <!-- //批发/零售业 -->
+                    <!-- 软件/信息技术服务业 -->
+                    <div class="content_produ">
+                    	<!-- title_produc -->
+                    	<div class="title_produc" style="background:#268bb9;">
+                        	<h3 style="font-family:'微软雅黑';"><i class="fa fa-desktop" style="margin-right:20px"></i>IT</h3>
+                            <a href="#"> > </a>
+                        </div>
+                        <!-- //title_produc -->
+                        <!-- menu_produc -->
+                        <div class="menu_produc" style="border-bottom:none; margin-bottom:1px;">
+                            
+                                    <div class="big_left">
+                                       <img onerror="nofind();" src="__TMPL__Public/shop/img/it.jpg"/>
+                            		</div>
+
+                            <ul class="sml_right">
+                            <php>
+                                $it = sp_sql_approve("htypeid:6;field:id,mlogo,mname;order:createtime DESC;limit:8;");
+                            </php>
+                            <foreach name="it" item="it">
+                                    <li>
+                                        <div class="img_rec_sml">
+                                        <a href="{:u('memberprod/memberinfo',array('id'=>$it['id']))}" title="{$it.mname}">
+                                            <img onerror="nofind();" src="{$it.mlogo}" alt="{$it.mname}" title="{$it.mname}"/>
+                                        </a>
+                                        </div>
+                                        <div class="tip_sml"> <a href="{:u('memberprod/memberinfo',array('id'=>$it['id']))}" title="{$it.mname}">{$it.mname}</a></div>
+                                    </li>
+                            </foreach>
+                            </ul>
+                            <!-- //sml_right -->
+                        </div>
+                        <!-- //menu_prouc -->
+                    </div>
+                    <!-- //软件/信息技术服务业 -->
+                    <!-- 文化/体育/娱乐业 -->
+                    <div class="content_produ">
+                    	<!-- title_produc -->
+                    	<div class="title_produc" style="background:#52a0e8;">
+                        	<h3 style="font-family:'微软雅黑';"><i class="fa fa-futbol-o" style="margin-right:20px"></i>文化體育</h3>
+                            <a href="#"> > </a>
+                        </div>
+                        <!-- //title_produc -->
+                        <!-- menu_produc -->
+                        <div class="menu_produc" style="border-bottom:none; margin-bottom:1px;">
+
+                            <div class="big_left">
+                                       <img onerror="nofind();" src="__TMPL__Public/shop/img/culture.jpg"/>
+                            </div>
+                            <ul class="sml_right">
+                        <php>
+                        	$culture = sp_sql_approve("htypeid:7;field:id,mlogo,mname;order:createtime DESC;limit:8;");
+                        </php>
+                        <foreach name="culture" item="cu">
+                                <li>
+                                	<div class="img_rec_sml">
+                                    <a href="{:u('memberprod/memberinfo',array('id'=>$cu['id']))}" title="{$cu.mname}">
+                                        <img onerror="nofind();" src="{$cu.mlogo}" alt="{$cu.mname}" title="{$cu.mname}"/>
+                                    </a>
+                                    </div>
+                                    <div class="tip_sml"><a href="{:u('memberprod/memberinfo',array('id'=>$cu['id']))}" title="{$cu.mname}">{$cu.mname}</a></div>
+                                </li>
+                		</foreach>
+                            </ul>
+                            <!-- //sml_right -->
+                        </div>
+                        <!-- //menu_prouc -->
+                    </div>
+                    <!-- //文化/体育/娱乐业 -->
+                                        <div class="content_produ">
+                    	<!-- title_produc -->
+                    	<div class="title_produc" style="background:#1d4506;">
+                        	<h3 style="font-family:'微软雅黑';"><i class="fa fa-cogs" style="margin-right:20px"></i>製造</h3>
+                            <a href="#"> > </a>
+                        </div>
+                        <!-- //title_produc -->
+                        <!-- menu_produc -->
+                        <div class="menu_produc" style="border-bottom:none; margin-bottom:1px;">
+
+                            <div class="big_left">
+                                       <img onerror="nofind();" src="__TMPL__Public/shop/img/manufacture.jpg"/>
+                            </div>
+                            <ul class="sml_right">
+                            
+                        <php>
+                        	$manufacture = sp_sql_approve("htypeid:8;field:id,mlogo,mname;order:createtime DESC;limit:6;");
+                        </php>
+                        <foreach name="manufacture" item="ma">
+                            
+                                <li>
+                                	<div class="img_rec_sml">
+                                    <a href="{:u('memberprod/memberinfo',array('id'=>$ma['id']))}" title="{$ma.mname}">
+                                        <img onerror="nofind();" src="{$ma.mlogo}" alt="{$ma.mname}" title="{$ma.mname}"/>
+                                    </a>
+                                    </div>
+                                    <div class="tip_sml"><a href="{:u('memberprod/memberinfo',array('id'=>$ma['id']))}" title="{$ma.mname}">{$ma.mname}</a></div>
+                                </li>
+                		</foreach>
+                        
+                            </ul>
+                            <!-- //sml_right -->
+                        </div>
+                        <!-- //menu_prouc -->
+                    </div>
+                </div>
+                <div class="menu_right">
+                	<div class="discount" style="padding-top:21px;">
+                        <div class="title_dis" style="border-bottom:#621432 2px solid;">
+                            <h3 style="color:#621432; font-family:'微软雅黑'; font-weight:500; font-size:24px;"><i class="fa fa-comments-o" style="margin-right:20px"></i>信息</h3>
+                            <a href="{:u('memberprod/info')}" style="color:#621432;"> > </a>
+                        </div>
+                        <div class="content_dis">
+                        <php>
+                        	$message = sp_sql_message("field:id,title,comm;order:status DESC;limit:1;");
+                        </php>
+                        <foreach name="message" item="mess">
+                            <div class="msg_dis">
+                                <a href="{:u('memberprod/infoinfo',array('id'=>$mess['id']))}" title="{$mess.comm}">{$mess.comm}</a>
+                                <a href="{:u('memberprod/infoinfo',array('id'=>$mess['id']))}" title="{$mess.comm}"><p>{$mess.title}</p> </a>          
+                            </div>
+                		</foreach>
+                        
+                        
+                        </div>
+                    </div>
+                <php>
+                    $producezx = sp_sql_produce("field:id,pimg,mname,pname,comm;order:createtime DESC;limit:4;");
+                </php>
+                <foreach name="producezx" item="zx">                    
+                	<div class="discount" style="padding-top:21px;">
+                        <div class="title_dis" style="border-bottom:#368acb 2px solid;">
+                        	<h3 style="color:#368acb; font-family:'微软雅黑'; font-weight:500; font-size:20px;">{$zx.pname}</h3>
+                        </div>
+                        <div class="content_dis">
+                            <div class="img_dis">
+                            <a href="{:u('memberprod/productinfo',array('id'=>$zx['id']))}" title="{$zx.pname}">
+                                <img onerror="nofind();" src="{$zx.pimg}" alt="{$zx.pname}" title="{$zx.pname}"/>
+                            </a>
+                            </div>
+                            <div class="msg_dis">
+                                <a href="{:u('memberprod/productinfo',array('id'=>$zx['id']))}" title="{$zx.mname}">{$zx.mname}</a> 
+                        		<p>{$zx.comm}</p>                   
+                            </div>
+                        </div>
+                    </div>
+                </foreach>
+                  
+                        <php>
+                        	$approvezx = sp_sql_approve("field:id,htypename,mlogo,mname;order:createtime DESC;limit:4;");
+                        </php>
+                        <foreach name="approvezx" item="zx">
+                        <div class="discount" style="padding-top:21px;">
+                            <div class="title_dis" style="border-bottom:#368acb 2px solid;">
+                                <h3 style="color:#368acb; font-family:'微软雅黑'; font-weight:500; font-size:20px;">{$zx.mname}</h3>
+                            </div>
+                            <div class="content_dis">
+                                <div class="img_dis">
+                                <a href="{:u('memberprod/productinfo',array('id'=>$zx['id']))}" title="{$zx.mname}">
+                                    <img onerror="nofind();" src="{$zx.mlogo}" alt="{$zx.mname}" title="{$zx.mname}"/>
+                                </a>
+                                </div>
+                                <div class="msg_dis">
+                                    <a href="{:u('memberprod/productinfo',array('id'=>$zx['id']))}" title="{$zx.htypename}">{$zx.htypename}</a> 
+                                    <p>{$zx.comm}</p>                   
+                                </div>
+                            </div>
+                        </div>
+                		</foreach> 
+
+                </div>
+                <!-- //menu_right -->
+            </div>
+        </div>
+        <!-- //content -->
+    </div>
+    <!-- //wrap -->
+
+<tc_include file="Public:footer"/>
+</body>
+</html>
